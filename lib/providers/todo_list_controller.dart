@@ -2,6 +2,7 @@ import 'package:connectiq_alkaff_pretest/cores/configs/api_config.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/services/api_service.dart';
 import 'package:connectiq_alkaff_pretest/services/fetch_todo_list.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -16,6 +17,8 @@ class TodoListController {
 
   final PagingController<int, Todo> pagingController =
       PagingController(firstPageKey: 0);
+
+  TextEditingController searchEditingController = TextEditingController();
 
   void init() {
     pagingController.addPageRequestListener((pageKey) {

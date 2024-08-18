@@ -4,9 +4,12 @@ import 'package:connectiq_alkaff_pretest/services/api_service.dart';
 
 extension FetchTodoList on ApiService {
   Future<List<Todo>> fetchTodoList(
-      {required int start, int limit = ApiConfig.itemLimitPerFetch}) async {
+      {required int start,
+      int limit = ApiConfig.itemLimitPerFetch,
+      int? searchById}) async {
     try {
-      final endPoint = "posts?_start=$start&_limit=$limit";
+      final searchByIdParam = searchById != null ? "/$searchById" : "";
+      final endPoint = "posts?_start=$start&_limit=$limit$searchByIdParam";
       final response = await get(
         endPoint,
       );
