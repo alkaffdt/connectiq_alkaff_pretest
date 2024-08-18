@@ -18,7 +18,7 @@ class ApiService {
 
       return _handleResponse(response);
     } catch (e) {
-      // Handle error (network issues, timeout, etc.)
+// Handle error (network issues, timeout, etc.)
       return _handleError(e);
     }
   }
@@ -29,6 +29,33 @@ class ApiService {
       final response = await http
           .post(Uri.parse('${ApiConfig.baseUrl}$endpoint'),
               headers: ApiConfig.defaultHeaders, body: json.encode(data))
+          .timeout(const Duration(seconds: ApiConfig.timeoutDuration));
+
+      return _handleResponse(response);
+    } catch (e) {
+      return _handleError(e);
+    }
+  }
+
+  Future<dynamic> put(String endpoint,
+      {Map<String, dynamic> data = const {}}) async {
+    try {
+      final response = await http
+          .put(Uri.parse('${ApiConfig.baseUrl}$endpoint'),
+              headers: ApiConfig.defaultHeaders, body: json.encode(data))
+          .timeout(const Duration(seconds: ApiConfig.timeoutDuration));
+
+      return _handleResponse(response);
+    } catch (e) {
+      return _handleError(e);
+    }
+  }
+
+  Future<dynamic> delete(String endpoint) async {
+    try {
+      final response = await http
+          .delete(Uri.parse('${ApiConfig.baseUrl}$endpoint'),
+              headers: ApiConfig.defaultHeaders)
           .timeout(const Duration(seconds: ApiConfig.timeoutDuration));
 
       return _handleResponse(response);

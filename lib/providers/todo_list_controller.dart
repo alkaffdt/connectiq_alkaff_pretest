@@ -1,8 +1,10 @@
 import 'package:connectiq_alkaff_pretest/cores/configs/api_config.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/services/api_service.dart';
+import 'package:connectiq_alkaff_pretest/services/delete_todo.dart';
 import 'package:connectiq_alkaff_pretest/services/fetch_todo_list.dart';
 import 'package:connectiq_alkaff_pretest/services/search_todo_by_id.dart';
+import 'package:connectiq_alkaff_pretest/services/update_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -63,7 +65,11 @@ class TodoListController {
     pagingController.refresh();
   }
 
-  void remoteItem(int index) {
-    pagingController.value.itemList?.remove(index);
+  void deleteTodo(int todoId) {
+    apiService.deleteTodoById(todoId);
+  }
+
+  void updateTodo(Map<String, dynamic> data) {
+    apiService.updateTodoById(data: data);
   }
 }
