@@ -1,4 +1,5 @@
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
+import 'package:connectiq_alkaff_pretest/presentations/search_bar_view.dart';
 import 'package:connectiq_alkaff_pretest/presentations/todo_listview.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +17,14 @@ class HomePage extends StatelessWidget {
             IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
         ),
-        body: const Column(
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //top margin
-            Expanded(child: TodoListview())
+            16.toHeightGap(),
+            const SearchFieldView(),
+            16.toHeightGap(),
+            const Expanded(child: TodoListview())
           ],
         ),
       ),

@@ -23,24 +23,52 @@ class _TodoListviewState extends ConsumerState<TodoListview> {
         padding: const EdgeInsets.all(16),
         pagingController: pagingController,
         builderDelegate: PagedChildBuilderDelegate(
-          noMoreItemsIndicatorBuilder: (context) {
-            return const Center(child: Text("No more items"));
-          },
           itemBuilder: (context, item, index) {
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${item.id}: ${item.title}").fontSize(16).medium(),
-                    8.toHeightGap(),
-                    Text(item.body ?? ""),
-                  ],
+            return Dismissible(
+              confirmDismiss: (direction) {
+                return dismissConfirmation(context);
+              },
+              key: UniqueKey(),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${item.id}: ${item.title}").fontSize(16).medium(),
+                      8.toHeightGap(),
+                      Text(item.body ?? ""),
+                    ],
+                  ),
                 ),
               ),
             );
           },
+          noMoreItemsIndicatorBuilder: (context) {
+            return const Center(child: Text("No more items"));
+          },
         ));
+  }
+
+  Future<bool?> dismissConfirmation(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm"),
+          content: const Text("Are you sure you wish to delete this item?"),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("CANCEL"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text("DELETE"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

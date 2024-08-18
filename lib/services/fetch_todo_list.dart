@@ -3,19 +3,19 @@ import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/services/api_service.dart';
 
 extension FetchTodoList on ApiService {
-  Future<List<Todo>> fetchTodoList(
-      {required int start,
-      int limit = ApiConfig.itemLimitPerFetch,
-      int? searchById}) async {
+  Future<List<Todo>> fetchTodoList({
+    required int start,
+    int limit = ApiConfig.itemLimitPerFetch,
+  }) async {
     try {
-      final searchByIdParam = searchById != null ? "/$searchById" : "";
-      final endPoint = "posts?_start=$start&_limit=$limit$searchByIdParam";
+      final endPoint = "posts?_start=$start&_limit=$limit";
       final response = await get(
         endPoint,
       );
 
       final data = response as List;
 
+      // then convert data to ToDo objects
       return data
           .map(
             (e) => Todo.fromJson(e),
