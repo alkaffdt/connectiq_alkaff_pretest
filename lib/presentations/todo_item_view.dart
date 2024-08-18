@@ -1,3 +1,4 @@
+import 'package:connectiq_alkaff_pretest/cores/components/loading_provider.dart';
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/presentations/update_todo_dialog.dart';
@@ -33,7 +34,13 @@ class TodoItemView extends ConsumerWidget {
         return dismissConfirmation(context);
       },
       onDismissed: (direction) {
-        ref.read(todoListProvider).deleteTodo(item.id);
+        AppLoading.show(context, message: "Deleting...");
+
+        ref.read(todoListProvider).deleteTodo(item.id).whenComplete(
+          () {
+            Navigator.pop(context);
+          },
+        );
       },
       key: UniqueKey(),
       child: GestureDetector(
@@ -94,6 +101,8 @@ class TodoItemView extends ConsumerWidget {
                   style: TextButton.styleFrom(
                       foregroundColor: AppColors.bluePrimary),
                   onPressed: () {
+                    AppLoading.show(context, message: "Updating...");
+
                     final data = {
                       "userId": item.userId,
                       "id": item.id,
@@ -101,7 +110,11 @@ class TodoItemView extends ConsumerWidget {
                       "body": bodyTextController.text
                     };
 
-                    ref.read(todoListProvider).updateTodo(data);
+                    ref.read(todoListProvider).updateTodo(data).whenComplete(
+                      () {
+                        Navigator.pop(context);
+                      },
+                    );
                   },
                   icon: const Icon(Icons.save),
                   label: const Text("UPDATE"));

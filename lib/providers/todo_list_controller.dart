@@ -65,11 +65,11 @@ class TodoListController {
     pagingController.refresh();
   }
 
-  void deleteTodo(int todoId) {
-    apiService.deleteTodoById(todoId);
+  Future<void> deleteTodo(int todoId) async {
+    await apiService.deleteTodoById(todoId);
   }
 
-  void updateTodo(Map<String, dynamic> data) {
-    apiService.updateTodoById(data: data);
+  Future<void> updateTodo(Map<String, dynamic> data) async {
+    await apiService.updateTodoById(data: data);
   }
 }

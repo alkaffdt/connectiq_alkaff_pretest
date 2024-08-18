@@ -1,4 +1,5 @@
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
+import 'package:connectiq_alkaff_pretest/presentations/create_todo_fab.dart';
 import 'package:connectiq_alkaff_pretest/presentations/search_bar_view.dart';
 import 'package:connectiq_alkaff_pretest/presentations/todo_listview.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class HomePage extends StatelessWidget {
             const Expanded(child: TodoListview())
           ],
         ),
+        floatingActionButton: const CreateTodoFAB(),
       ),
     );
   }
