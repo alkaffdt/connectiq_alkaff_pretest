@@ -1,6 +1,7 @@
 import 'package:connectiq_alkaff_pretest/cores/configs/api_config.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/services/api_service.dart';
+import 'package:connectiq_alkaff_pretest/services/create_todo.dart';
 import 'package:connectiq_alkaff_pretest/services/delete_todo.dart';
 import 'package:connectiq_alkaff_pretest/services/fetch_todo_list.dart';
 import 'package:connectiq_alkaff_pretest/services/search_todo_by_id.dart';
@@ -71,5 +72,10 @@ class TodoListController {
 
   Future<void> updateTodo(Map<String, dynamic> data) async {
     await apiService.updateTodoById(data: data);
+  }
+
+  Future<void> createTodo(Map<String, dynamic> data) async {
+    data.remove("id");
+    await apiService.createTodo(data: data);
   }
 }

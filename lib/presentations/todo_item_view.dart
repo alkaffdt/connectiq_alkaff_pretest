@@ -1,7 +1,7 @@
 import 'package:connectiq_alkaff_pretest/cores/components/loading_provider.dart';
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
-import 'package:connectiq_alkaff_pretest/presentations/update_todo_dialog.dart';
+import 'package:connectiq_alkaff_pretest/presentations/create_update_todo_dialog.dart';
 import 'package:connectiq_alkaff_pretest/providers/todo_list_controller.dart';
 import 'package:connectiq_alkaff_pretest/styles/const_colors.dart';
 import 'package:connectiq_alkaff_pretest/styles/text_styles.dart';
@@ -45,7 +45,7 @@ class TodoItemView extends ConsumerWidget {
       key: UniqueKey(),
       child: GestureDetector(
         onTap: () {
-          showEditPopup(context);
+          CreateUpdateTodoDialog.showCreateEditDialog(context, item: item);
         },
         child: Card(
           child: Padding(
@@ -61,67 +61,6 @@ class TodoItemView extends ConsumerWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void showEditPopup(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) {
-        TextEditingController idTextController =
-            TextEditingController(text: item.id.toString());
-        TextEditingController userIdTextController =
-            TextEditingController(text: item.userId.toString());
-        TextEditingController titleTextController =
-            TextEditingController(text: item.title);
-        TextEditingController bodyTextController =
-            TextEditingController(text: item.body);
-
-        return AlertDialog.adaptive(
-          title: const Text("Update Todo"),
-          content: Center(
-            child: Material(
-                color: Colors.transparent,
-                child: UpdateTodoDialog(
-                    bodyTextController: bodyTextController,
-                    idTextController: idTextController,
-                    titleTextController: titleTextController,
-                    userIdTextController: userIdTextController)),
-          ),
-          actions: [
-            TextButton.icon(
-                style: TextButton.styleFrom(foregroundColor: Colors.red),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                label: const Text("CANCEL")),
-            Consumer(builder: (context, ref, _) {
-              return TextButton.icon(
-                  style: TextButton.styleFrom(
-                      foregroundColor: AppColors.bluePrimary),
-                  onPressed: () {
-                    AppLoading.show(context, message: "Updating...");
-
-                    final data = {
-                      "userId": item.userId,
-                      "id": item.id,
-                      "title": titleTextController.text,
-                      "body": bodyTextController.text
-                    };
-
-                    ref.read(todoListProvider).updateTodo(data).whenComplete(
-                      () {
-                        Navigator.pop(context);
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.save),
-                  label: const Text("UPDATE"));
-            })
-          ],
-        );
-      },
     );
   }
 

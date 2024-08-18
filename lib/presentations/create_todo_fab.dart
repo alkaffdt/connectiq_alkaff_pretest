@@ -1,4 +1,4 @@
-import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
+import 'package:connectiq_alkaff_pretest/presentations/create_update_todo_dialog.dart';
 import 'package:connectiq_alkaff_pretest/styles/const_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +16,9 @@ class CreateTodoFAB extends ConsumerWidget {
         Icons.add,
       ),
       label: const Text("Create a todo"),
-      onPressed: () {},
+      onPressed: () {
+        CreateUpdateTodoDialog.showCreateEditDialog(context);
+      },
     );
   }
 }
