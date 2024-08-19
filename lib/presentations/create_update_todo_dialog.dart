@@ -1,4 +1,5 @@
-import 'package:connectiq_alkaff_pretest/cores/components/loading_provider.dart';
+import 'package:connectiq_alkaff_pretest/cores/components/app_dialog.dart';
+import 'package:connectiq_alkaff_pretest/cores/components/app_loading.dart';
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/providers/todo_list_controller.dart';
@@ -39,6 +40,7 @@ class CreateUpdateTodoDialog extends StatelessWidget {
         final isCreate = item?.id == null;
 
         return AlertDialog.adaptive(
+          scrollable: true,
           title: Text(isCreate ? "Create Todo" : "Update Todo"),
           content: Center(
             child: Material(
@@ -64,6 +66,7 @@ class CreateUpdateTodoDialog extends StatelessWidget {
                     AppLoading.show(context, message: "Saving...");
 
                     final data = {
+                      "userId": item?.userId,
                       "id": item?.id,
                       "title": titleTextController.text,
                       "body": bodyTextController.text
@@ -72,7 +75,8 @@ class CreateUpdateTodoDialog extends StatelessWidget {
                     _submitTodo(context, ref, data: data).whenComplete(
                       () {
                         Navigator.pop(context);
-                        Navigator.pop(context);
+
+                        AppDialog.showSuccessMessage(context);
                       },
                     );
                   },
@@ -100,45 +104,47 @@ class CreateUpdateTodoDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final isUpdate = idTextController.text.isNotEmpty;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // hide ID & UserID field when create a new Todo
-        if (isUpdate) ...[
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // hide ID & UserID field when create a new Todo
+          if (isUpdate) ...[
+            TextField(
+              controller: idTextController,
+              enabled: false,
+              decoration: const InputDecoration(
+                  label: Text("Todo ID"), icon: Icon(Icons.key_rounded)),
+            ),
+            16.toHeightGap(),
+            TextField(
+              controller: userIdTextController,
+              enabled: false,
+              decoration: const InputDecoration(
+                  label: Text("User ID"), icon: Icon(Icons.person)),
+            ),
+            16.toHeightGap(),
+          ],
           TextField(
-            controller: idTextController,
-            enabled: false,
+            controller: titleTextController,
+            maxLines: isUpdate ? 2 : 1,
             decoration: const InputDecoration(
-                label: Text("Todo ID"), icon: Icon(Icons.key_rounded)),
+              label: Text("Title"),
+              icon: Icon(Icons.title),
+            ),
           ),
           16.toHeightGap(),
           TextField(
-            controller: userIdTextController,
-            enabled: false,
+            controller: bodyTextController,
+            maxLines: isUpdate ? 5 : 1,
             decoration: const InputDecoration(
-                label: Text("User ID"), icon: Icon(Icons.person)),
+              label: Text("Body"),
+              icon: Icon(Icons.text_fields_rounded),
+            ),
           ),
-          16.toHeightGap(),
         ],
-        TextField(
-          controller: titleTextController,
-          maxLines: isUpdate ? 2 : 1,
-          decoration: const InputDecoration(
-            label: Text("Title"),
-            icon: Icon(Icons.title),
-          ),
-        ),
-        16.toHeightGap(),
-        TextField(
-          controller: bodyTextController,
-          maxLines: isUpdate ? 5 : 1,
-          decoration: const InputDecoration(
-            label: Text("Body"),
-            icon: Icon(Icons.text_fields_rounded),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

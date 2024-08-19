@@ -1,4 +1,4 @@
-import 'package:connectiq_alkaff_pretest/cores/components/loading_provider.dart';
+import 'package:connectiq_alkaff_pretest/cores/components/app_loading.dart';
 import 'package:connectiq_alkaff_pretest/cores/extensions/int_extensions.dart';
 import 'package:connectiq_alkaff_pretest/models/todo_model.dart';
 import 'package:connectiq_alkaff_pretest/presentations/create_update_todo_dialog.dart';

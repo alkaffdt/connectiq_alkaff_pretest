@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text("To-Do Memos"),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-          ],
+          // actions: [
+          //   IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+          // ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -24,6 +24,8 @@ class TodoListController {
 
   TextEditingController searchEditingController = TextEditingController();
 
+  List<Todo> newTodos = [];
+
   void init() {
     pagingController.addPageRequestListener((pageKey) {
       fetchTodoList();
@@ -36,13 +38,17 @@ class TodoListController {
           ? int.parse(searchEditingController.text)
           : null;
 
-      final List<Todo> newItems;
+      final needToInsertNewElements = newTodos.isNotEmpty &&
+          (pagingController.value.itemList?.isEmpty ?? true);
+
+      List<Todo> newItems = needToInsertNewElements ? List.from(newTodos) : [];
 
       if (searchById != null) {
-        newItems = await apiService.searchTodoById(searchById: searchById);
+        newItems
+            .addAll(await apiService.searchTodoById(searchById: searchById));
       } else {
-        newItems = await apiService.fetchTodoList(
-            start: pagingController.itemList?.length ?? 0);
+        newItems.addAll(await apiService.fetchTodoList(
+            start: pagingController.itemList?.length ?? 0));
       }
 
       final isLastPage =
@@ -70,12 +76,29 @@ class TodoListController {
     await apiService.deleteTodoById(todoId);
   }
 
-  Future<void> updateTodo(Map<String, dynamic> data) async {
-    await apiService.updateTodoById(data: data);
+  Future<bool> updateTodo(Map<String, dynamic> data) async {
+    try {
+      return apiService.updateTodoById(data: data);
+    } catch (error) {
+      return false;
+    }
   }
 
-  Future<void> createTodo(Map<String, dynamic> data) async {
-    data.remove("id");
-    await apiService.createTodo(data: data);
+  Future<bool> createTodo(Map<String, dynamic> data) async {
+    try {
+      data.remove("id");
+      Todo response = await apiService.createTodo(data: data);
+
+      // response.id from backend always 101,
+      // so we need to adjust it manually on client's side
+      response.id = ApiConfig.maxItems + newTodos.length + 1;
+      newTodos.insert(0, response);
+
+      pagingController.refresh();
+
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
