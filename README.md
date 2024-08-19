@@ -3,7 +3,7 @@
 ## Features:
 ### ✅ Fetch Todo list with pagination (infinite scroll)
 <details>
-      <summary>Preview videos</summary>
+      <summary>Video previews</summary>
 
   </br>
   Android:
@@ -21,7 +21,7 @@ https://github.com/user-attachments/assets/b97d3199-2b1a-46d8-80ea-393afc995111
 ### ✅ Create Todo
 ### ✅ Update a Todo
 <details>
-      <summary>Preview videos</summary>
+      <summary>Video previews</summary>
 
   </br>
   Android:
@@ -43,9 +43,9 @@ https://github.com/user-attachments/assets/b9e828f8-ba7a-4671-bc36-b2fac98c7326
 </details>
 
 
-- ✅ Delete a Todo
+### ✅ Delete a Todo
 <details>
-      <summary>Preview videos</summary>
+      <summary>Video previews</summary>
 
   </br>
   Android:
@@ -55,18 +55,11 @@ https://github.com/user-attachments/assets/b9e828f8-ba7a-4671-bc36-b2fac98c7326
 https://github.com/user-attachments/assets/9abf0638-509a-47f7-bb84-d7b9a64ef210
 
 
-
-
-
-
 </br>
   iOS:
 
 
 https://github.com/user-attachments/assets/ac5a0af7-e361-4698-a1ff-22910399476d
-
-
-
 
 
 
