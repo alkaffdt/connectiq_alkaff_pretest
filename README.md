@@ -1,5 +1,14 @@
 # Alkaff's Qonnectiq Pretest
 
+<img width="555" alt="image" src="https://github.com/user-attachments/assets/739af4e8-3db3-4ca6-b537-3f88d9345ae5">
+
+### [Try the Demo on Web-App ](https://qonnectiq-alkaff.netlify.app/)
+
+## Supported Platforms:
+- ✅ Android 
+- ✅ iOS 
+- ✅ [WEB - Try the demo](https://qonnectiq-alkaff.netlify.app/)
+
 ## Features:
 ### ✅ Fetch Todo list with pagination (infinite scroll)
 <details>
@@ -69,10 +78,7 @@ https://github.com/user-attachments/assets/ac5a0af7-e361-4698-a1ff-22910399476d
 - ✅ State Management = Riverpod
 - ✅ Pagination (Infinite Scroll)
 - ✅ Adaptive UI (some widgets will adapt to their native components)
-- ✅ CI/CD : Automate to build & deploy to App-web when the branch is merged/pushed
+- ✅ CI/CD : Automate to build & deploy to web-app whenever the branch is merged/pushed
 
-## Supported Platforms:
-- ✅ Android 
-- ✅ iOS 
-- ✅ Web 
+
 
